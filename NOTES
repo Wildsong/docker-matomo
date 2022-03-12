@@ -1,0 +1,123 @@
+<details>
+<summary>Click to view System Check</summary>
+
+### Mandatory checks
+
+#### PHP version >= 7.2.5:
+ ✔ 8.0.16
+
+#### PDO extension:
+ ✔ 
+
+#### PDO\MYSQL extension:
+ ✔ 
+
+#### MYSQLI extension:
+ ✔ 
+
+#### Other required extensions:
+ ✔ zlib ✔ json ✔ filter ✔ hash ✔ session
+
+#### Required functions:
+ ✔ debug_backtrace ✔ eval ✔ hash ✔ gzcompress ✔ gzuncompress ✔ pack
+
+#### Required PHP configuration (php.ini):
+ ✔ session.auto_start = 0 ✔ max_execution_time = 0 OR = -1 OR >= 30
+
+#### Directories with write access:
+ ✔ $DOC_ROOT/tmp ✔ $DOC_ROOT/tmp/assets ✔ $DOC_ROOT/tmp/cache ✔ $DOC_ROOT/tmp/climulti ✔ $DOC_ROOT/tmp/latest ✔ $DOC_ROOT/tmp/logs ✔ $DOC_ROOT/tmp/sessions ✔ $DOC_ROOT/tmp/tcpdf ✔ $DOC_ROOT/tmp/templates_c ✔ $DOC_ROOT/config
+
+
+### Optional checks
+
+#### File integrity:
+ ✔ 
+
+#### 64-bit PHP Binary:
+ ✔ 
+
+#### Tracker status:
+ ✔ 
+
+#### Memory limit:
+ ✔ 256M
+
+#### Time zone:
+ ✔ 
+
+#### Open URL:
+ ✔ curl
+
+#### PageSpeed is turned off:
+ ✔ 
+
+#### GD > 2.x + FreeType (graphics):
+ ✔ 
+
+#### Other extensions:
+ ✔ json ✔ libxml ✔ dom ✔ SimpleXML ✔ openssl
+
+#### Other functions:
+ ✔ shell_exec ✔ set_time_limit ✔ mail ✔ parse_ini_file ✔ glob ✔ gzopen ✔ md5_file
+
+#### Filesystem:
+ ✔ 
+
+#### Set up Cron - Managing processes via CLI:
+ ✔ Ok
+
+#### Update over HTTPS:
+ ✔ 
+
+#### Writable JavaScript Tracker ("/matomo.js"):
+ ✔ 
+
+
+### Informational results
+
+#### Matomo Version:
+ 4.8.0
+
+#### PHP_OS:
+ Linux
+
+#### PHP SAPI:
+ apache2handler
+
+#### PHP Timezone:
+ UTC
+
+#### PHP Time:
+ 1647044188
+
+#### PHP Datetime:
+ 2022-03-12 00:16:28
+
+#### PHP INI max_execution_time:
+ 30
+
+#### PHP INI post_max_size:
+ 8M
+
+#### PHP INI max_input_vars:
+ 1000
+
+#### PHP INI zlib.output_compression:
+ 0
+
+#### Curl Version:
+ 7.74.0, OpenSSL/1.1.1k
+
+#### Suhosin Installed:
+ 0
+
+#### Server Info:
+ Apache/2.4.52 (Debian)
+
+#### User Agent:
+ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+
+#### Browser Language:
+ en-us,en
+
+</details>
