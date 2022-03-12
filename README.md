@@ -1,4 +1,4 @@
-# matomo
+# docker-matomo
 
 Matomo does the web tracker analytics thing
 that you'd like to use Google Analytics for but
@@ -43,3 +43,7 @@ This is the code to put in pages you want to track on Delta.
   })();
 </script>
 <!-- End Matomo Code -->
+
+## LICENSE
+
+[MIT](LICENSE)
