@@ -5,53 +5,49 @@ networks:
   proxy_net:
     name: proxy_net
     external: true
-  matomo_db_net:
+  matomo_network:
+    name: matamo_network
 
-volumes:
-  matomo_db:
-  matomo:
-    
 services:
   app:
-    image: matomo
+    build: ./build_context
     volumes:
-      #- ${PWD}/config:/var/www/html/config:rw
-      #- ./logs:/var/www/html/logs
-      #- $PWD/goaccess-apache.conf:/etc/apache2/sites-available/000-default.conf
-      - matomo:/var/www/html
+      - ./matomo_app:/var/www/html
     links:
       - db
     environment:
-      MATOMO_DATABASE_HOST: db
-      VIRTUAL_HOST: ${BASEURL}
-      VIRTUAL_PORT: 8080
-      NETWORK_ACCESS: internal
-      LETSENCRYPT_HOST:  ${BASEURL}
-      LETSENCRYPT_MAIL: ${MY_EMAIL}
+      - VIRTUAL_HOST=${BASEURL}
+      - VIRTUAL_PORT=8080
+      - NETWORK_ACCESS=internal
+      - LETSENCRYPT_HOST=${BASEURL}
+      - LETSENCRYPT_MAIL=${MY_EMAIL}
+      - MATOMO_DATABASE_HOST=db
+      - MYSQL_USER=matomo
+      - MYSQL_PASSWORD=matomo
+      - MYSQL_DATABASE=matomo
     env_file:
-      - ${PWD}/.env
+      - ./.env
     restart: unless-stopped
     ports:
       - 8080:80
     depends_on:
       - db
-
     networks:
       proxy_net:
         aliases:
           - matomo
-      matomo_db_net:
+      matomo_network:
 
   db:
     image: mariadb
     volumes:
-      - matomo_db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - ./matomo_data:/var/lib/mysql
     env_file:
-      - ${PWD}/.env
+      - ./.env
     command: --max-allowed-packet=64MB
     restart: unless-stopped
-
     networks:
-      matomo_db_net:
+      matomo_network:
+        aliases:
+          - db
+

@@ -1,0 +1,4 @@
+MaxMindDBEnable on
+MaxMindDBFile CITY_DB /var/www/html/misc/GeoLite2-City.mmdb
+
+MaxMindDBEnv COUNTRY_CODE
