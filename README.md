@@ -67,36 +67,30 @@ This is the code to put in pages you want to track on Delta.
 I want people on the 'net to be able to see the tracker, obviously, 
 but I don't want them to have access to the admin web pages.
 
-Matomo is behind a reverse proxy, so all traffic appears to come from the proxy server, and therefore, the local network. Since everything is on Docker that means a 172 address.
+Matomo is behind a reverse proxy, so all traffic appears to come from the proxy server, and therefore, the local network. In order to block outside
+traffic, you have to watch the headers that the proxy inserts.
 
-To see what's going on, I started a bash shell and edited /etc/apache2/apache2.conf to add this line after the place where modules are loaded.
+When you do a 'curl https://echo.co.clatsop.or.us/no.php' internally
+it will work. When you do it from a docker machine or from outside it
+will fail.
 
-```bash
-ForensicLog /tmp/forensic.log
-```
+You can use the Apache forensic log but using PHP is easier.
 
-Then I enabled to module, and restart Apache.
-This will also kick me out of the bash shell, so the third 
-command will work.
-
-```bash
-a2enmod log_forensic
-apachectl restart
-docker exec matomo_app_1 tail -f /tmp/forensic.log
-```
-
-Then I can capture a couple 'wgets', one from inside and one from outside to see the headers.
+Copy htaccess to matomo_app/.htaccess and it should start working.
+Uncomment the "no.php" section and hit that URL and you should see
+the full headers similar to this
 
 ```bash
-+863:6234b92d:11|GET /no.php HTTP/1.1|Host:echo.co.clatsop.or.us|Connection:close|X-Real-IP:172.18.0.1|X-Forwarded-For:172.18.0.1|X-Forwarded-Proto:https|X-Forwarded-Ssl:on|X-Forwarded-Port:443|User-Agent:Wget/1.20.1 (linux-gnu)|Accept:*/*|Accept-Encoding:identity
--863:6234b92d:11
-
-+867:6234b911:10|GET /no.php HTTP/1.1|Host:echo.co.clatsop.or.us|Connection:close|X-Real-IP:47.33.165.207|X-Forwarded-For:47.33.165.207|X-Forwarded-Proto:https|X-Forwarded-Ssl:on|X-Forwarded-Port:443|User-Agent:Wget/1.20.3 (linux-gnu)|Accept:*/*|Accept-Encoding:identity
--867:6234b911:10
+1647628471.<br>Host: echo.co.clatsop.or.us
+Connection: close
+X-Real-IP: 47.33.165.207
+X-Forwarded-For: 47.33.165.207
+X-Forwarded-Proto: https
+X-Forwarded-Ssl: on
+X-Forwarded-Port: 443
+user-agent: curl/7.68.0
+accept: */*
 ```
-
-I can use this information when I build the htaccess file, and I can turn the forensic log off by simply reloading the docker, since the changes I
-made are not in the image they will disappear.
 
 ## LICENSE
 
