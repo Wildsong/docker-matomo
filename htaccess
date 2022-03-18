@@ -1,4 +1,35 @@
-MaxMindDBEnable on
-MaxMindDBFile CITY_DB /var/www/html/misc/GeoLite2-City.mmdb
+#Not yet for this
+#MaxMindDBEnable on
+#MaxMindDBFile CITY_DB /var/www/html/misc/GeoLite2-City.mmdb
+#MaxMindDBEnv COUNTRY_CODE
 
-MaxMindDBEnv COUNTRY_CODE
+ErrorDocument 403 "<font face=courier>403 access denied</font>"
+
+# Block outside access to administrative pages.
+# Request proxied locally always have a 10... address
+<Files "*">
+    SetEnvIf X-Forwarded-For ^(10\..*)$ real_ip=$1
+    Order deny,allow
+    Allow from env=real_ip
+    Deny from all
+    #RequestHeader set Internal-IP %{real_ip}e env=real_ip
+</Files>
+
+# Uncomment to enable URL "no.php" to test access
+#<Files ~ "^no.php$">
+#    SetEnvIf X-Forwarded-For ^(10\..*)$ real_ip=$1
+#    Order deny,allow
+#    #Allow from env=real_ip
+#    Allow from all
+#    Deny from all
+#    RequestHeader append No-IP %{real_ip}e env=real_ip
+#</Files>
+
+# This is enough to allow matomo.php or matomo.js
+<Files ~ "^matomo\.(js|php)|robots\.txt$">
+    Allow from all
+    Satisfy any
+</Files>
+
+# Disable session auto-start; incompatible with Zend_Session.
+php_flag session.auto_start off
