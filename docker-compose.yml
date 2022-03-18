@@ -17,8 +17,8 @@ services:
       - db
     environment:
       - VIRTUAL_HOST=${BASEURL}
-      - VIRTUAL_PORT=8080
-      - NETWORK_ACCESS=internal
+      - VIRTUAL_PORT=8088
+      #- NETWORK_ACCESS=internal
       - LETSENCRYPT_HOST=${BASEURL}
       - LETSENCRYPT_MAIL=${MY_EMAIL}
       - MATOMO_DATABASE_HOST=db
@@ -29,7 +29,7 @@ services:
       - ./.env
     restart: unless-stopped
     ports:
-      - 8080:80
+      - 8088:80
     depends_on:
       - db
     networks:
