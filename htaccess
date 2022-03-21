@@ -12,18 +12,19 @@ ErrorDocument 403 "<font face=courier>403 access denied</font>"
     Order deny,allow
     Allow from env=real_ip
     Deny from all
+    # You can't put a RequestHeader directive in an htaccess file!
     #RequestHeader set Internal-IP %{real_ip}e env=real_ip
 </Files>
 
 # Uncomment to enable URL "no.php" to test access
-#<Files ~ "^no.php$">
-#    SetEnvIf X-Forwarded-For ^(10\..*)$ real_ip=$1
-#    Order deny,allow
-#    #Allow from env=real_ip
-#    Allow from all
-#    Deny from all
-#    RequestHeader append No-IP %{real_ip}e env=real_ip
-#</Files>
+<Files ~ "^no.php$">
+    SetEnvIf X-Forwarded-For ^(10\..*)$ real_ip=$1
+    Order deny,allow
+    # We want to see the request header even if the IP address is not what we expect
+    #Allow from env=real_ip
+    Allow from all
+    Deny from all
+</Files>
 
 # This is enough to allow matomo.php or matomo.js
 <Files ~ "^matomo\.(js|php)|robots\.txt$">
