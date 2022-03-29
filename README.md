@@ -10,6 +10,11 @@ You put a block of JavaScript into every page you want tracked,
 and that causes the browser to send information to Matomo
 and store it in a database.
 
+## Configure
+
+Copy sample.env to .env and edit it.
+Set a static ip address that matches the one used by the reverse proxy.
+
 ## Deploy
 
 The folders db and matomo are used by the bitnami dockers
@@ -24,7 +29,7 @@ docker-compose up -d
 
 ## GeoIP
 
-You used to be able to just download free data files, privacy concerns 
+You used to be able to just download free data files, privacy concerns
 mean you have to create a MaxMind.com account.
 
 Login and then dig around 

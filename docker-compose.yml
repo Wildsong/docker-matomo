@@ -8,6 +8,10 @@ networks:
   matomo_network:
     name: matamo_network
 
+volumes:
+  data:
+    name: matomo_db
+
 services:
   app:
     build: ./build_context
@@ -15,6 +19,8 @@ services:
       - ./matomo_app:/var/www/html
     links:
       - db
+    env_file:
+      - ./.env
     environment:
       - VIRTUAL_HOST=${BASEURL}
       - VIRTUAL_PORT=8088
@@ -25,8 +31,6 @@ services:
       - MYSQL_USER=matomo
       - MYSQL_PASSWORD=matomo
       - MYSQL_DATABASE=matomo
-    env_file:
-      - ./.env
     restart: unless-stopped
     ports:
       - 8088:80
@@ -34,14 +38,13 @@ services:
       - db
     networks:
       proxy_net:
-        aliases:
-          - matomo
+        ipv4_address: ${STATIC_IP_ADDRESS}
       matomo_network:
 
   db:
     image: mariadb
     volumes:
-      - ./matomo_data:/var/lib/mysql
+      - data:/var/lib/mysql
     env_file:
       - ./.env
     command: --max-allowed-packet=64MB

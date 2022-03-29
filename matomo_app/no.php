@@ -9,4 +9,6 @@ foreach (getallheaders() as $name => $value) {
     echo $cur_hd;
 }
 echo "</p>";
+
+phpinfo();
 ?>
